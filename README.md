@@ -5,6 +5,7 @@ MetaCalc is a command line tool for calculating common (not individual!) metabol
 Therefore its helpfull to have a basic set of masses at hand without the need to draw each metabolite with 2D drawing software and subsequently generate the monoisotopic mass.
 
 Planned features for future versions:
+- Support chlorine atoms
 - Include derivatisations of the parent compound into calculation
 - Advanced chemistry considerations like esters, amides, cyclic structures, ...
 - Include ESI, APCI and EI ion source
