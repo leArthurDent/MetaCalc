@@ -1,1 +1,4 @@
-/autom4te.cache linguist-generated = true
+autom4te.cache/* linguist-generated = true
+INSTALL linguist-generated = true
+README.md linguist-documentation = true
+LICENSE linguist-generated = true
