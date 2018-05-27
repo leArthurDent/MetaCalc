@@ -1,6 +1,6 @@
 /*
     Functions in this file:
-    - void chemscanf (int formula[10])
+    - void parseFormula (char charFormula[33], int intFormula[10])
     - void assembleFormula(int intFormula[10], char charFormula[33])
     - void displayTable(chemical *output, int size)
     - void exportTable(chemical *table, int size)
@@ -15,243 +15,220 @@ extern chemical compound;
 
 /*Function to enter a molecular formula and return the atom numbers as an integer array
 Atoms are sorted by IUPAC guidelines, other orders that are entered are also supported
-Currently this function supports C, H, Br, F, I, N, O, P, S*/
-void chemscanf (int formula[10])
-{
-    char input[33], bufferflush, buffer[3];
+Currently this function supports C, H, Br, Cl, F, I, N, O, P, S*/
+void
+parseFormula (char charFormula[33], int intFormula[10]) {
+
+    char buffer[3];
     int a, i;
 
-    for(a = 0; a < 10; a++) {
-        formula[a] = 0;
+    for (a = 0; a < 10; a++) {
+
+        intFormula[a] = 0;
+
     }
-    scanf("%33s", input);
 
-    do{
-        bufferflush = getchar();
-    }
-    while(bufferflush != '\n' && bufferflush != EOF);
-
-    for(i = 0; i < sizeof(input) / sizeof(char); i++){
-
-    /*if((input[i] == 'C') && (input[++i] == 'l')) {
-            ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[3] = 1;
-            }
-            else {
-                buffer[0] = input[i];
-                ++i;
-                if(isdigit(input[i]) == 0) {
-                    buffer[1] = '\0';
-                }
-                else {
-                    buffer[1] = input[i];
-                    buffer[2] = '\0';
-                }
-                formula[3] = atoi(buffer);
-            }
-            --i;
-        }'*/
+    for (i = 0; i < 33; i++) {
         
-        if(input[i] == 'C'){
+        if(charFormula[i] == 'C') {
             i++;
-       	    if (input[i] == 'l') {
-            	if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[3] = 1;
+       	    if (charFormula[i] == 'l') {
+            	if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[3] = 1;
             	}
             	else {
-			buffer[0] = input[i];
+			buffer[0] = charFormula[i];
 			++i;
-			if(isdigit(input[i]) == 0) {
+			if(isdigit(charFormula[i]) == 0) {
 			    buffer[1] = '\0';
 			}
 			else {
-			    buffer[1] = input[i];
+			    buffer[1] = charFormula[i];
 			    buffer[2] = '\0';
                 	}
-                	formula[3] = atoi(buffer);
+                	intFormula[3] = atoi(buffer);
                 }
             }
-            else if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[0] = 1;
+            else if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[0] = 1;
             }
             
-            else if (input[i] != 'l'){
-                buffer[0] = input[i];
+            else if (charFormula[i] != 'l'){
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[0] = atoi(buffer);
+                intFormula[0] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'H') {
+        else if(charFormula[i] == 'H') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[1] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[1] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[1] = atoi(buffer);
+                intFormula[1] = atoi(buffer);
             }
             --i;
         }
 
-        else if((input[i] == 'B') && (input[++i] == 'r')) {
+        else if((charFormula[i] == 'B') && (charFormula[++i] == 'r')) {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[2] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[2] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[2] = atoi(buffer);
+                intFormula[2] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'F') {
+        else if(charFormula[i] == 'F') {
                 ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[4] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[4] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[4] = atoi(buffer);
+                intFormula[4] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'I') {
+        else if(charFormula[i] == 'I') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[5] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[5] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[5] = atoi(buffer);
+                intFormula[5] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'N') {
+        else if(charFormula[i] == 'N') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[6] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[6] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[6] = atoi(buffer);
+                intFormula[6] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'O') {
+        else if(charFormula[i] == 'O') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[7] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[7] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[7] = atoi(buffer);
+                intFormula[7] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'P') {
+        else if(charFormula[i] == 'P') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[8] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[8] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[8] = atoi(buffer);
+                intFormula[8] = atoi(buffer);
             }
             --i;
         }
 
-        else if(input[i] == 'S') {
+        else if(charFormula[i] == 'S') {
             ++i;
-            if((isdigit(input[i]) == 0) || (input[i] == '\0')) {
-                formula[9] = 1;
+            if((isdigit(charFormula[i]) == 0) || (charFormula[i] == '\0')) {
+                intFormula[9] = 1;
             }
             else {
-                buffer[0] = input[i];
+                buffer[0] = charFormula[i];
                 ++i;
-                if(isdigit(input[i]) == 0) {
+                if(isdigit(charFormula[i]) == 0) {
                     buffer[1] = '\0';
                 }
                 else {
-                    buffer[1] = input[i];
+                    buffer[1] = charFormula[i];
                     buffer[2] = '\0';
                 }
-                formula[9] = atoi(buffer);
+                intFormula[9] = atoi(buffer);
             }
             --i;
         }
 
-        else if (input[i] == '\0') {
+        else if (charFormula[i] == '\0') {
             break;
         }
     }
@@ -630,12 +607,13 @@ void displayTable(chemical *output, int size)
 {
     int i;
 
-    printf("Name           Formula        Nominalmass    Exactmass");
+    printf("Name                      Formula        Nominal mass   Exact mass");
     printf("\n");
     for(i=0; i < size; i++)
     {
-        printf("%-15s%-15s%-15d%-12.4f\n", output[i].name, output[i].charFormula, output[i].nominalMass, output[i].exactMass);
+        printf("%-26s%-15s%-15d%-12.4f\n", output[i].name, output[i].charFormula, output[i].nominalMass, output[i].exactMass);
     }
+	printf("\n");
 }
 
 /*Functinon to export the result table into a .csv file*/

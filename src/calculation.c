@@ -31,7 +31,6 @@ int nominalMass(int intFormula[10])
     int i;
     int nominalMass = 0;
     int nominalMassAtoms[10] = {12, 1, 79, 35, 19, 127, 14, 16, 31, 32};
-
     for(i = 0; i < 10; i++)
     {
         nominalMass = nominalMass + intFormula[i] * nominalMassAtoms[i];

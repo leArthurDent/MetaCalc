@@ -3,6 +3,6 @@
 
 #include <inout.h>
 
-void metabolise(chemical *compound);
+void metabolise(chemical *compound, int metabolism [2]);
 
 #endif
